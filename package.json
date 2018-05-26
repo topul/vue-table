@@ -1,0 +1,26 @@
+{
+  "name": "vue-table",
+  "version": "0.0.1",
+  "description": "基于vue2.x的table组件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/topul/vue-table.git"
+  },
+  "keywords": [
+    "vue",
+    "table"
+  ],
+  "author": "topul",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/topul/vue-table/issues"
+  },
+  "homepage": "https://github.com/topul/vue-table#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1"
+  }
+}
