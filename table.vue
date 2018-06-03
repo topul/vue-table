@@ -52,7 +52,7 @@
                     <input type="checkbox" @change="toggleCheckbox(data, index, $event)"
                           :checked="rowSelected(index)">
                   </td>
-                  <td v-if="$scopedSlots['td.' + field.name]" :key="idx" :align="field.align || 'center'"
+                  <td v-if="!data[field.name + 'dis'] && $scopedSlots['td.' + field.name]" :key="idx" :align="field.align || 'center'"
                     :style="{minWidth: field.minWidth + 'px'}" :class="'table-column__' + idx">
                     <slot :name="'td.' + field.name"
                       :row-data="data" :row-index="index"
