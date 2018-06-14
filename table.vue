@@ -18,17 +18,17 @@
               <tr v-for="(cols, index) in headCols" :key="index">
                 <template v-for="(field, idx) in cols">
                   <th :key="idx" v-if="field.type==='index'" :rowspan="headRows" :width="field.width || 50" :class="'table-column__' + idx">#</th>
-                  <th :key="idx" v-if="field.type==='selection'" :rowspan="headRows" :width="field.width || 50" :class="'table-column__' + idx">
+                  <th :key="idx" v-else-if="field.type==='selection'" :rowspan="headRows" :width="field.width || 50" :class="'table-column__' + idx">
                     <input type="checkbox" @change="toggleAllCheckboxes" class="table-th__checkbox">
                   </th>
-                  <th v-if="$scopedSlots['th.' + field.name]" :key="idx" :align="field.align || 'center'"
+                  <th v-else-if="$scopedSlots['th.' + field.name]" :key="idx" :align="field.align || 'center'"
                     :style="{minWidth: field.minWidth + 'px'}" :rowspan="field.rowspan" :colspan="field.colspan"
                     :class="'table-column__' + idx">
                     <slot :name="'th.' + field.name" :row-name="field.name"
                       :row-data="getColData(field)" :row-index="idx"
                     ></slot>
                   </th>
-                  <th v-if="!$scopedSlots['th.' + field.name] && !field.type" :key="idx" v-html="renderTitle(field)" style="height: 38px;"
+                  <th v-else :key="idx" v-html="renderTitle(field)" style="height: 38px;"
                     :style="{minWidth: field.minWidth + 'px'}" :rowspan="field.rowspan" :colspan="field.colspan"
                     :align="field.align || 'center'" :class="'table-column__' + idx"></th>
                 </template>
@@ -48,17 +48,17 @@
               <tr v-for="(data, index) in tableData" :key="index" :class="['table-body__tr', data._rowClass]">
                 <template v-for="(field, idx) in dataCols">
                   <td :key="idx" v-if="field.type==='index'" align="center" :width="field.width || 50" :class="'table-column__' + idx">{{index + 1}}</td>
-                  <td :key="idx" v-if="field.type==='selection'" align="center" :width="field.width || 50" :class="'table-column__' + idx">
+                  <td :key="idx" v-else-if="field.type==='selection'" align="center" :width="field.width || 50" :class="'table-column__' + idx">
                     <input type="checkbox" @change="toggleCheckbox(data, index, $event)"
                           :checked="rowSelected(index)">
                   </td>
-                  <td v-if="$scopedSlots['td.' + field.name]" :key="idx" :align="field.align || 'center'"
+                  <td v-else-if="!data[field.name+'dis'] && $scopedSlots['td.' + field.name]" :key="idx" :align="field.align || 'center'"
                     :style="{minWidth: field.minWidth + 'px'}" :class="'table-column__' + idx">
                     <slot :name="'td.' + field.name"
                       :row-data="data" :row-index="index"
                     ></slot>
                   </td>
-                  <td :key="idx" :rowspan="data[field.name+'span']" v-if="!data[field.name+'dis'] && !$scopedSlots['td.' + field.name] && !field.type" v-html="getObjectValue(data, field, index)"
+                  <td :key="idx" :rowspan="data[field.name+'span']" v-else v-html="getObjectValue(data, field, index)"
                     style="height: 30px;" :align="field.align || 'center'" :style="{minWidth: field.minWidth + 'px'}" :class="'table-column__' + idx" :title="field.tooltip ? getObjectValue(data, field, index):''">
                   </td>
                 </template>
