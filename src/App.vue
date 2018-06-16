@@ -2,6 +2,7 @@
   <div id="app">
     <img src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <tl-table :options="options" :data="data" active></tl-table>
   </div>
 </template>
 
@@ -12,6 +13,12 @@ export default {
   name: 'app',
   components: {
     HelloWorld
+  },
+  data () {
+    return {
+      options: {},
+      data: {}
+    }
   }
 }
 </script>

@@ -92,13 +92,14 @@
 
 <script>
 export default {
+  name: 'TlTable',
   props: {
     options: {type: Object, default: () => {}},
     data: {type: Array, default: () => []},
-    active: {type: Boolean, default: false},
-    loading: {type: Boolean, default: false},
-    border: {type: Boolean, default: false},
-    strip: {type: Boolean, default: false}
+    active: Boolean,
+    loading: Boolean,
+    border: Boolean,
+    strip: Boolean
   },
   data () {
     return {
@@ -308,6 +309,7 @@ export default {
             }
             if (templist[i][parent] !== templist[i + 1][parent]) break
           } catch (error) {
+            /*eslint no-console: 0*/
             console.log(templist)
           }
         }
@@ -317,6 +319,7 @@ export default {
           let k = 0
           while (k < len) {
             if (typeof newArr[k] !== 'object') {
+              /*eslint no-console: 0*/
               console.error(`数组${newArr}中有一个空值，序号为${k}`)
               k++
               continue
@@ -351,10 +354,10 @@ export default {
     },
     /**
     * @argument:object   表格数据
-    * @argument: path    当前行的名称
+    * @argument: field    当前行的名称
     * @return: obj       当前行的数据
     */
-    getObjectValue (object, field, index) {
+    getObjectValue (object, field) {
       let defaultValue = null
       if (typeof this.options.defaultValue === 'undefined' && typeof field.defaultValue === 'undefined') {
         defaultValue = null
@@ -438,7 +441,7 @@ export default {
       }
     },
     // 取消选中指定的复选框
-    unSelectId (key, data) {
+    unSelectId (key) {
       let index = this.selectedTo.findIndex(item => item === key)
       this.selectedTo.splice(index, 1)
       this.multipleSelection.splice(index, 1)
@@ -517,7 +520,7 @@ export default {
             })
             total = total / this.tableData.length
             break
-          default:
+          default: {
             let arr = []
             this.tableData.forEach(d => {
               arr.push(d[data.name])
@@ -527,6 +530,7 @@ export default {
             }
             if (!arr.length) return
             total = data.summaryMethod(arr)
+          }
         }
         return total
       }
