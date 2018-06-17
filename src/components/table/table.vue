@@ -247,24 +247,24 @@ export default {
       return mapArray
     },
     // 根据传入的parent对表格数据进行排序，相同的排在一起
-    sortTableData() {
-      let oldData = this.data.concat()
-      let data = []
-      let parent = this.getParentCell()
-      for (let i = 0; i < oldData.length; i++) {
-        if (oldData[i] === '') continue
-        // 由于嵌套循环会跳过当前元素，故先将当前元素加入数组
-        data.push(oldData[i])
-        // debugger
-        for (let j = i + 1; j < oldData.length; j++) {
-          if (oldData[i][parent] === oldData[j][parent]) {
-            data.push(oldData[j])
-            oldData[j] = ''
-          }
-        }
-      }
-      return data
-    },
+    // sortTableData() {
+    //   let oldData = this.data.concat()
+    //   let data = []
+    //   let parent = this.getParentCell()
+    //   for (let i = 0; i < oldData.length; i++) {
+    //     if (oldData[i] === '') continue
+    //     // 由于嵌套循环会跳过当前元素，故先将当前元素加入数组
+    //     data.push(oldData[i])
+    //     // debugger
+    //     for (let j = i + 1; j < oldData.length; j++) {
+    //       if (oldData[i][parent] === oldData[j][parent]) {
+    //         data.push(oldData[j])
+    //         oldData[j] = ''
+    //       }
+    //     }
+    //   }
+    //   return data
+    // },
     // 获取要合并的行
     getCombineCells () {
       let arr = []
@@ -326,7 +326,7 @@ export default {
             }
             newArr[k][field + 'span'] = 1
             newArr[k][field + 'dis'] = false
-            for (var i = k + 1; i <= len - 1; i++) {
+            for (let i = k + 1; i <= len - 1; i++) {
               if (newArr[i - 1][field] === newArr[i][field] && newArr[i][field] !== '') {
                 newArr[k][field + 'span']++
                 newArr[k][field + 'dis'] = false
@@ -390,7 +390,7 @@ export default {
             result = data
             // throw new Error(`${data} can not convert to a Number`)
           } else {
-            var parts = Number(data).toFixed(2).toString().split('.')
+            const parts = Number(data).toFixed(2).toString().split('.')
             result = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + parts[1]
           }
           break
