@@ -332,7 +332,8 @@ export default {
             }
             newArr[k][field + "span"] = 1;
             newArr[k][field + "dis"] = false;
-            for (let i = k + 1; i <= len - 1; i++) {
+            let i = k + 1;
+            for (let i; i <= len - 1; i++) {
               if (
                 newArr[i - 1][field] === newArr[i][field] &&
                 newArr[i][field] !== ""
@@ -592,7 +593,7 @@ export default {
 };
 </script>
 
-<style lang="stylus">
+<style lang="less">
 .component-table__wrapper {
   width: 100%;
   height: 100%;
